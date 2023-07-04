@@ -38,10 +38,10 @@ jobs:
       run: zip -r deploy.zip . -x '*.git*'
 
     - name: Deploy to EB
-      uses: aws-actions/configure-aws-credentials@v1
+      uses: einaregilsson/beanstalk-deploy@v20
       with:
-        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }} #AKIAXAPX2U2WO5MYXMBY
-        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} #TzlPobGOWI8PL5qDRLrxGe2Tw0OoLhM0d8d0QLc
+        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         application_name: django-github-actions-aws
         environment_name: django-github-actions-aws
         version_label: 12348
