@@ -31,7 +31,7 @@ jobs:
   push_to_registry:
     name: Build and push Docker image to Docker Hub
     # ...but only when a `release` is `published` (combined with `on`)
-    if: github.event_name == 'release'
+#    if: github.event_name == 'release'
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
@@ -61,8 +61,8 @@ jobs:
     - name: Deploy to EB
       uses: einaregilsson/beanstalk-deploy@v20
       with:
-        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws_access_key: AKIAXAPX2U2WO5MYXMBY # ${{ secrets.AWS_ACCESS_KEY_ID }} # AKIAXAPX2U2WO5MYXMBY
+        aws_secret_key: TzlPobGOWI8PL5qDRLrxGe2Tw0OoLhM0d8d0QLc # ${{ secrets.AWS_SECRET_ACCESS_KEY }} # TzlPobGOWI8PL5qDRLrxGe2Tw0OoLhM0d8d0QLc
         application_name: django-github-actions-aws
         environment_name: django-github-actions-aws
         version_label: 12348
