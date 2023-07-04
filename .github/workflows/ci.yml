@@ -9,7 +9,7 @@ on:
     types: [ published, edited ]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,10 +26,10 @@ jobs:
 
     - name: Run Tests
       run: |
-        python manage.py test
+        python manage.py build
 
   Deploy:
-    needs: test
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
@@ -44,7 +44,6 @@ jobs:
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
           
-            #Now we have got the access of EC2 and we will start the deploy .
             cd D:\Dolan-IncrementsInc\django-cicd &&
             git checkout main &&
             git fetch --all &&
