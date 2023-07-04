@@ -28,25 +28,6 @@ jobs:
       run: |
         python manage.py test
 
-  push_to_registry:
-    name: Build and push Docker image to Docker Hub
-    # ...but only when a `release` is `published` (combined with `on`)
-#    if: github.event_name == 'release'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@v2
-
-      - name: Build and push image to the Docker Hub
-        uses: docker/build-push-action@v1
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          repository: ${{ secrets.DOCKERHUB_REPOSITORY }}
-          tag_with_ref: true
-          tag_with_sha: true
-          tags: latest
-
   deploy:
     needs: [test]
     runs-on: ubuntu-latest
@@ -68,3 +49,21 @@ jobs:
         version_label: 12348
         region: "us-east-2"
         deployment_package: deploy.zip
+
+  push_to_registry:
+    name: Build and push Docker image to Docker Hub
+    #    if: github.event_name == 'release'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+
+      - name: Build and push image to the Docker Hub
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          repository: ${{ secrets.DOCKERHUB_REPOSITORY }}
+          tag_with_ref: true
+          tag_with_sha: true
+          tags: latest
